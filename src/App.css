@@ -1,0 +1,256 @@
+.App {
+  text-align: center;
+  padding: 3%;
+}
+.Card{
+  display: flex;
+  margin-top: 10%;
+  flex-direction: column;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  min-height: 480px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1rem;
+  padding: 3%;
+}
+button{
+  width: 70%;
+  height: 50px;
+  font-size: medium;
+  font-weight: 600;
+  border-radius: 1rem;
+}
+.main-btn{
+  border: 0px;
+  background-color: rgb(44, 150, 44);
+  color: white;
+  margin: 2.5%;
+}
+.main-btn:hover{
+  background-color: rgb(7, 112, 7);
+}
+.second-btn{
+  border: 0px;
+  background-color: rgb(28, 27, 27);
+  color: white;
+  margin: 2.5%;
+}
+.second-btn:hover{
+  background-color: rgb(0, 0, 0);
+}
+.back-btn{
+  border-color :rgb(44, 150, 44);
+  background-color:  rgb(255, 255, 255);
+  color: rgb(44, 150, 44);
+  margin: 2.5%;
+}
+.back-btn:hover{
+  background-color:  rgb(7, 112, 7);
+  color: white;
+  border: 0px;
+}
+/* Title and logo size level 1 */
+.app-title{
+  color: gold;
+  font-weight: 900;
+  margin: 0 auto;
+  font-size: 3rem;
+}
+.app-logo{
+  width: 50%;
+}
+/* Title and logo size level 2 */
+.logo-second{
+  width: 25%;
+}
+.title-second{
+  font-weight: 700;;
+  font-size: 1.5rem;
+}
+/* Title and logo size level 3 */
+.title-third{
+  font-weight: 700;;
+  font-size: 0.9rem;
+}
+.logo-third{
+  width: 15%;
+}
+.btn-only{
+  margin-bottom: 15%;
+}
+.text-content{
+  width: 80%;
+  text-align: justify;
+  margin: 0 auto;
+}
+#description{
+  font-weight: 600;
+  font-size: larger;
+  margin-top: 5%;
+  margin-bottom: 10%;
+}
+
+#instructions{
+  width: 90%;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.label{
+  font-size: 0.9 rem;
+  font-weight: 700;
+}
+.password-input{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 5%;
+}
+
+.input-field{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  width: 90%;
+  height: 40px;
+  justify-content: center;
+}
+.user-input{
+  width: 80%;
+  margin-right: 3%;
+  margin-left: 7%;
+  font-size: 0.9rem;
+  border: none;
+  border-bottom: 1px solid;
+  border-color: rgb(1, 1, 1);
+}
+.user-input:focus{
+  border-color: rgb(7, 112, 7);
+  border: 2px solid;
+  outline: none;
+}
+.shownhide-icon{
+  height: 25px;
+  align-self: center;
+  width: 10%;
+}
+.input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 0 auto;
+  width: 80%;
+}
+
+.size-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 35%;
+  flex-direction: row;
+  border: 2px solid black;
+  border-radius: 0.2rem;
+  font-size: 1rem;
+  font-weight: 900
+}
+.size-icon{
+  width: 30%;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+.size-icon:hover{
+  color:white;
+  background-color: rgb(7, 112, 7);
+  font-size: 1.2rem;
+}
+.size-value{
+  cursor: none;
+  padding: 2.5%;
+}
+.app-title-passwordcreation{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  width: 70%;
+  margin-bottom: 5%;
+}
+.check-box{
+  height: 20px;
+  width: 10%;
+}
+.passorkey-display{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  font-size: 1rem;
+  font-weight: 700;
+  align-items: center;
+  justify-content: space-between;
+}
+.copyorsave-icon{
+  height: 30px;
+  width: 8%;
+  align-self: center;
+  justify-self: flex-end;
+}
+.copyorsave-icon:hover{
+  height: 38px;
+  width: 10%;
+}
+.passorkey-value{
+  margin-right: 1%;
+  width: 100%;
+}
+.key-instructions{
+  width: 95%;
+  text-align: justify;
+  margin: 0 auto;
+  margin-top: 5%;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+#app-logo-last-page{
+  width: 10%;
+}
+#app-title-last-page{
+  font-size: 0.8rem;
+}
+
+.small-label{
+  font-size: 0.7rem;
+}
+.special-button{
+  background-color: white;
+  border: none;
+  margin: 2%;
+  width: 90%;
+}
+.special-button:hover{
+  border: 1px solid;
+}
+.key-component{
+  margin-top: 5%;
+  border: 1px solid;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  width: 80%;
+  margin: 0 auto;
+}
+.special-small-button{
+  font-size: 0.8rem;
+  background-color:white;
+  border: none;
+  margin: 2%;
+  width: 90%;
+  height: auto;
+}
+#user-input-getkey{
+  margin-bottom: 5%;
+}
+.test{
+  background-color: blue;
+}
+
