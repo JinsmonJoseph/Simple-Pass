@@ -24,30 +24,21 @@ const createKey=(data)=>{
     let passSize=data.passSize;
     const r1=getrandom(10);
     const r2=getrandom(10);
-    const numberOfCaps=1;
+    const numberOfCaps=0;
     const numberOfSmalls=0;
-    const numberOfDigits=1;
-    const numberOfSpecials=1;
+    const numberOfDigits=0;
+    const numberOfSpecials=0;
     while(r1===r2){
         r2=getrandom(10);
     }
-    if(data.smalls==false){
-        numberOfSmalls=0
+    if(data.smalls==true){
+        numberOfSmalls=getrandom((passSize-2))
     }
-    else{
-        numberOfSmalls=getrandom(1,(passSize-2))
+    if(data.digits==true){
+        numberOfDigits=getrandom(passSize-(numberOfSmalls+1))
     }
-    if(data.digits==false){
-        numberOfDigits=0
-    }
-    else{
-        numberOfDigits=getrandom(1,passSize-(numberOfSmalls+1))
-    }
-    if(data.caps==false){
-        numberOfCaps=0
-    }
-    else{
-        numberOfCaps=getrandom(1,passSize-(numberOfSmalls+numberOfDigits))
+    if(data.caps==true){
+        numberOfCaps=getrandom(passSize-(numberOfSmalls+numberOfDigits))
     }
     if(data.specials==false){
         numberOfSmalls=numberOfSmalls+1
