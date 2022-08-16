@@ -20,34 +20,50 @@ export const decodePass=(data)=>{
     const passObj=generatepass(data)
     return(passObj.password);
 }
+const getPos=(posArr1,posArr2,posArr3,totalPos)=>{
+    let currentPosArr=[];
+    let posFilled=0;
+    let posVal;
+    while(posFilled<totalPos){
+        posVal=getrandom(totalPos+1);
+        occupied=posArr1.includes(posVal) || posArr2.includes(posVal) || posArr3.includes(posVal) || currentPosArr.includes(posVal);
+        if(occupied==false){
+            currentPosArr.push(posVal-1);
+            posFilled=posFilled+1;
+        }
+    }
+    return currentPosArr;
+}
+const getPosBinary=(posArr,totalPos)=>{
+    let posArrBin=0
+    for(let i=0;i<totalPos;i++){
+        if(posArr.includes(i)) posArrBin=posArrBin*10+1;
+        else posArrBin=posArrBin*10;
+    }
+}
 const createKey=(data)=>{
     let passSize=data.passSize;
     const r1=getrandom(10);
     const r2=getrandom(10);
-    const numberOfCaps=1;
-    const numberOfSmalls=0;
-    const numberOfDigits=1;
-    const numberOfSpecials=1;
+    let numberOfCaps=0;
+    let numberOfSmalls=0;
+    let numberOfDigits=0;
+    let numberOfSpecials=0;
+    let smallPos=[];
+    let digitsPos=[];
+    let capsPos=[];
+    let specialPos=[];
     while(r1===r2){
         r2=getrandom(10);
     }
-    if(data.smalls==false){
-        numberOfSmalls=0
+    if(data.smalls==true){
+        numberOfSmalls=getrandom((passSize-2))
     }
-    else{
-        numberOfSmalls=getrandom(1,(passSize-2))
+    if(data.digits==true){
+        numberOfDigits=getrandom(passSize-(numberOfSmalls+1))
     }
-    if(data.digits==false){
-        numberOfDigits=0
-    }
-    else{
-        numberOfDigits=getrandom(1,passSize-(numberOfSmalls+1))
-    }
-    if(data.caps==false){
-        numberOfCaps=0
-    }
-    else{
-        numberOfCaps=getrandom(1,passSize-(numberOfSmalls+numberOfDigits))
+    if(data.caps==true){
+        numberOfCaps=getrandom(passSize-(numberOfSmalls+numberOfDigits))
     }
     if(data.specials==false){
         numberOfSmalls=numberOfSmalls+1
@@ -55,6 +71,22 @@ const createKey=(data)=>{
     else{
         numberOfSpecials=s-(numberOfSmalls+numberOfDigits+numberOfCaps)
     }
+    smallPos=getPos(digitsPos,capsPos,specialPos,passSize);
+    digitsPos=getPos(digitsPos,capsPos,specialPos,passSize);
+    capsPos=getPos(digitsPos,capsPos,specialPos,passSize);
+    for(i=0;i<passSize;i++){
+        let occup=smallPos.includes(i) || capsPos.includes(i) || digitsPos.includes(i) || specialPos.includes(i)
+        if(occup==false){
+            specialPos.push(i);
+        }
+    }
+    const smallPosBin=getPosBinary(smallPos,passSize);
+    const capsPosBin=getPosBinary(capsPos,passSize);
+    const digitsPosBin=getPosBinary(digitsPos,passSize);
+    const specialsPosBin=getPosBinary(specialsPos,passSize);
+    
+
+
 
     
 
