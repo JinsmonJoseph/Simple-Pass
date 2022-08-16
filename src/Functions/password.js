@@ -35,11 +35,13 @@ const getPos=(posArr1,posArr2,posArr3,totalPos)=>{
     return currentPosArr;
 }
 const getPosBinary=(posArr,totalPos)=>{
-    let posArrBin=0
+    let posBin=0
     for(let i=0;i<totalPos;i++){
-        if(posArr.includes(i)) posArrBin=posArrBin*10+1;
-        else posArrBin=posArrBin*10;
+        if(posArr.includes(i)) posBin=posBin*10+1;
+        else posBin=posBin*10;
     }
+    return possBin;
+    
 }
 const createKey=(data)=>{
     let passSize=data.passSize;
