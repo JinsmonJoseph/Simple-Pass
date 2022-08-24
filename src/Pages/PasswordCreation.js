@@ -23,7 +23,7 @@ export default function PasswordCreation({changePage,updateDataobj,dataObj}) {
     const [includespecials,Setincludespecials]=useState(true);
     const checkincludespecials=(specialsval)=>Setincludespecials(specialsval);
     const passData={
-        pass:password,
+        mpass:password,
         con:confirmpassword,
         passSize:sizeValue,
         caps:includecaps,
@@ -68,7 +68,7 @@ export default function PasswordCreation({changePage,updateDataobj,dataObj}) {
                 if(handlepasswordfield(passData)){
                     console.log(passData);
                     const passobj=generatepass(passData);
-                    passData.pass=password;
+                    passData.mpass=password;
                     passData.passObj=passobj;
                     updateDataobj(passData);
                     changePage("passwordcreated-page");

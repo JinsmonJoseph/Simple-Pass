@@ -16,7 +16,7 @@ const getrandom = (max) => {
 
 export const generatepass=(data)=>{
     const KeyVar=createKey(data);
-    const PassWord=generator(KeyVar,data);
+    const PassWord=generator(KeyVar,data.mpass);
     return(passObject);
 };
 export const decodePass=(data)=>{
@@ -60,19 +60,18 @@ const convertToStdSize = (binstr) => {
     return(binstr)
 }
 //Function to split 24 bit binary string to a 4 element array of 6-bit binary strings
-const splitString = (binStr) => {
-    let index = 0;
+const splitString = (str,subStrSize) => {
+    let head = 0;
+    let tail=subStrSize
     let list = [];
-    let six = 0;
-    while (head < binStr.length) {
-        six = 0;
-        temp = "";
-        while (six < 6) {
-            temp = temp + binStr[head];
-            head = head + 1;
-            six = six + 1;
-        }
-        list.push(temp);
+    str=str.split("")
+    while(tail<=str.length){
+        let tempArr=str.slice(head,tail)
+        let tempStr=""
+        tempArr.forEach(item=>tempStr+=item)
+        list.push(tempStr)
+        head=tail;
+        tail+=subStrSize;
     }
     return(list);
 }
@@ -166,10 +165,10 @@ const createKey = (data) => {
     let specialsPosBin = getPosBinary(specialsPos, passSize);
     specialsPosBin = convertToStdSize(specialsPosBin);
 
-    let smallPosBinArr = splitString(smallPosBin);
-    let capsPosBinArr = splitString(capsPosBin);
-    let digitsPosBinArr = splitString(digitsPosBin);
-    let specialsPosBinArr = splitString(specialsPosBin);
+    let smallPosBinArr = splitString(smallPosBin,6);
+    let capsPosBinArr = splitString(capsPosBin,6);
+    let digitsPosBinArr = splitString(digitsPosBin,6);
+    let specialsPosBinArr = splitString(specialsPosBin,6);
     let temp1 = ""
     let temp2 = ""
     let temp3 = ""
@@ -183,5 +182,71 @@ const createKey = (data) => {
     const key = r1 + r2 + temp1 + temp2 + temp3 + temp4;
     return (key);
 }
+//Function to convert a decimal number to 6 digit binary string
+const convertTo6DigitBinary=(num)=>{
+    let sixDigitBinaryStr=num.toString(2);
+    let add=""
+    while(add.length!=(6-sixDigitBinaryStr.length)){
+        add=add+"0";
+    }
+    return(add+sixDigitBinaryStr)
+}
+//Function to populate the the password with each type of values 
+// index=0 => Caps |index=1 => Smalls | index=2 => Digits | index=3 => Specials
+const populatePassword=(posarr,initialpass,index)=>{
+    prevVal=""
+    for(let i=0;i<initialpass.length;i++){
+        if(posarr[index][i]==="1"){
+            initialpass=initialpass.split("");
+            prevVal=getRandomVal(prevVal,index);
+            initialpass[i]=prevVal;
+            initialpass=initialpass.join("");
+        }
+    }
+    return(initialpass);
+}
+// Function to convert MasterPassword to a number
+const convertMasterPassToNumStr=(mpass)=>{
+    numStr=""
 
+}
 
+//Function to generate password from a Key and Master Password
+const generator = (Key, mpass) => {
+    const randNum1 = Key[0];
+    const randNum2 = Key[1];
+    let binStr = "";
+    for (let i = 2; i < Key.length; i++) {
+        let binVal = ""
+        const asciiVal = Key.charCodeAt(i)
+        if (asciiVal == 64) {
+            binval = convertTo6DigitBinary(62);
+        }
+        else if (asciiVal == 35) {
+            binVal = convertTo6DigitBinary(63);
+        }
+        else if (asciiVal < 58 && asciiVal > 47) {
+            binVal = convertTo6DigitBinary(asciiVal - 48);
+        }
+        else if (asciiVal < 91 && asciiVal > 64) {
+            binVal = convertTo6DigitBinary(asciiVal - 55);
+        }
+        else {
+            binVal = convertTo6DigitBinary(asciiVal - 61);
+        }
+        binStr = binStr + binVal
+    }
+    let posValArr1 = splitString(binStr, 24);
+    let posValArr = [];
+    let sizeDiff = posValArr1[0].length - passSize;
+    posValArr1.forEach(item => posValArr.push(item.slice(sizeDiff)))
+    let initialState = ""
+    while (initialState.length < data.passSize) {
+        initialState = initialState + "*"
+    }
+    let mPassNumStr=convertMasterPassToNumStr(mpass)
+    let state1=populatePassword(mPassNumStr,posarr,initialpass,0);
+    let state2=populatePassword(mPassNumStr,posarr,state1,1);
+    let state3=populatePassword(mPassNumStr,posarr,state2,2);
+    let state4=populatePassword(mPassNumStr,posarr,state3,3);
+}
